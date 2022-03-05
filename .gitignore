@@ -39,6 +39,9 @@ out/
 *.tar.gz
 *.rar
 
+### Different ###
+Errors.docx
+
 ### Exclusions ###
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
