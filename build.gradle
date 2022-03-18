@@ -5,13 +5,23 @@ plugins {
 group 'ru.netology'
 version '1.0-SNAPSHOT'
 
+sourceCompatibility = 11
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation 'org.projectlombok:lombok:1.18.22'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testImplementation 'org.projectlombok:lombok:1.18.22'
+    testImplementation 'mysql:mysql-connector-java:8.0.25'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+    implementation 'commons-dbutils:commons-dbutils:1.7'
+    implementation 'com.codeborne:selenide:6.3.4'
 }
 
 test {

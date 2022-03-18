@@ -23,7 +23,7 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pass
 
-  node-container:
-    build: ./gate-simulator
-    ports:
-      - '9999:9999'
+#  node-container:
+#    build: ./gate-simulator
+#    ports:
+#      - '9999:9999'
