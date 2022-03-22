@@ -26,7 +26,8 @@ public class BuyByCard {
 
 
     private ElementsCollection successMessage = $$(".notification__title");
-    private SelenideElement errorMessage = $$(".notification__title").findBy(Condition.text("Ошибка"));
+    private SelenideElement errorMessage = $(".input__sub");
+//    private SelenideElement errorMessage = $$(".notification__title").findBy(Condition.text("Ошибка"));
 
 
     public BuyByCard() {
@@ -68,6 +69,9 @@ public class BuyByCard {
 
     public void errorYear() {
         errorMessage.shouldHave(Condition.text("Неверный формат"));
+    }
+    public void errorYearNull() {
+        errorMessage.shouldHave(Condition.text("Истёк срок действия карты"));
     }
 
     public void errorOwner() {

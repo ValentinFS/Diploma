@@ -1,13 +1,19 @@
 package ru.netology.data;
 
+import com.codeborne.selenide.conditions.Or;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.checkerframework.checker.units.qual.C;
+import ru.netology.data.DbUtils.CreditRequestEntity;
+import ru.netology.data.DbUtils.OrderEntity;
 import ru.netology.data.DbUtils.PaymentEntity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DbHelper {
 
@@ -37,17 +43,89 @@ public class DbHelper {
     @SneakyThrows
     public static PaymentEntity payData() {
         QueryRunner runner = new QueryRunner();
-        String reqStatus = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1;";
+//        String reqStatus = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1;";
+        String reqStatus = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
 
 
         PaymentEntity payData = new PaymentEntity();
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            payData = runner.query(conn, reqStatus, new BeanHandler<>(PaymentEntity.class));
+             payData = runner.query(conn, reqStatus, new BeanHandler<>(PaymentEntity.class));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return payData;
+            return payData;
+        }
+
+
+    @SneakyThrows
+    public static CreditRequestEntity creditData() {
+        QueryRunner runner = new QueryRunner();
+        String selectStatus = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
+
+        CreditRequestEntity creditData = new CreditRequestEntity();
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            creditData = runner.query(conn, selectStatus, new BeanHandler<>(CreditRequestEntity.class));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return creditData;
+    }
+
+    @SneakyThrows
+    public static OrderEntity orderData() {
+        var runner = new QueryRunner();
+        var selectStatus = "SELECT * FROM order_entity ORDER BY created DESC LIMIT 1;";
+
+        OrderEntity orderData = new OrderEntity();
+        try (var conn = DriverManager.getConnection(url, user, password)) {
+            orderData = runner.query(conn, selectStatus, new BeanHandler<>(OrderEntity.class));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderData;
+    }
+
+    @SneakyThrows
+    public static void checkEmptyOrderEntity() {
+        QueryRunner runner = new QueryRunner();
+        String orderRequest = "SELECT * FROM order_entity;";
+
+        OrderEntity orderBlock = new OrderEntity();
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            orderBlock = runner.query(conn, orderRequest, new BeanHandler<>(OrderEntity.class));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            assertNull(orderBlock);
+        }
+    }
+
+    @SneakyThrows
+    public static void checkEmptyPaymentEntity() {
+        var runner = new QueryRunner();
+        var orderRequest = "SELECT * FROM payment_entity";
+
+        PaymentEntity paymentBlock = new PaymentEntity();
+        try (var conn = DriverManager.getConnection(url, user, password)) {
+            paymentBlock = runner.query(conn, orderRequest, new BeanHandler<>(PaymentEntity.class));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            assertNull(paymentBlock);
+        }
+    }
+
+    @SneakyThrows
+    public static void checkEmptyCreditEntity() {
+        var runner = new QueryRunner();
+        var orderRequest = "SELECT * FROM credit_request_entity;";
+
+        CreditRequestEntity creditBlock = new CreditRequestEntity();
+        try (var conn = DriverManager.getConnection(url, user, password)) {
+            creditBlock = runner.query(conn, orderRequest, new BeanHandler<>(CreditRequestEntity.class));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            assertNull(creditBlock);
+        }
     }
 
 }

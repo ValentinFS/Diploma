@@ -3,6 +3,7 @@ package ru.netology.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import java.time.Duration;
 
@@ -15,7 +16,7 @@ public class BuyByCredit {
     private SelenideElement cardNumberCard = $(".input__control[placeholder='0000 0000 0000 0000']");
     private SelenideElement monthCard = $(".input__control[placeholder='08']");
     private SelenideElement yearCard = $(".input__control[placeholder='22']");
-    private SelenideElement ownerCard = $$(".input__top").findBy(Condition.text("Владелец"));
+    private SelenideElement ownerCard = $(By.xpath("//span[text()='Владелец']/..//input"));
     private SelenideElement cvcCard = $(".input__control[placeholder='999']");
 
     private SelenideElement buttonBuyCard = $$("button").findBy(Condition.text("Купить"));
@@ -48,7 +49,7 @@ public class BuyByCredit {
 
     public void getSuccessMessage() {
         successMessage.get(0).shouldBe(Condition.visible, Duration.ofSeconds(15));
-        successMessage.get(0).shouldHave(Condition.exactText("Операция одобрена Банком."));
+        successMessage.get(0).shouldHave(Condition.exactText("Успешно"));
     }
 
     public void getErrorMessage() {

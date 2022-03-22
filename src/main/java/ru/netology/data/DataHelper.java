@@ -57,10 +57,9 @@ public class DataHelper {
         return "4444 4444 4444 4442";
     }
 
-    public static Long getInvalidCardNumber() {
+    public static String getInvalidCardNumber() {
         Faker faker = new Faker();
-        Long invalidCardNumber = faker.number().randomNumber(11, true);
-        return invalidCardNumber;
+        return Long.toString(faker.number().randomNumber(11, true));
     }
 
     public static String getEmptyCardNumber() {

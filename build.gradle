@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id "io.freefair.lombok" version "5.3.0"
+    id  'io.qameta.allure' version '2.9.6'
 }
 
 group 'ru.netology'
@@ -8,6 +10,14 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 11
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
+
+allure {
+    autoconfigure = true
+    version = '2.16.1' // Latest Allure Version
+    useJUnit5 {
+        version = '2.16.1' // Latest Allure Version
+    }
+}
 
 repositories {
     mavenCentral()
@@ -22,8 +32,13 @@ dependencies {
     implementation 'com.github.javafaker:javafaker:1.0.2'
     implementation 'commons-dbutils:commons-dbutils:1.7'
     implementation 'com.codeborne:selenide:6.3.4'
+    implementation 'io.qameta.allure:allure-selenide:2.13.6'
+
+
 }
 
 test {
     useJUnitPlatform()
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+    systemProperty 'datasource.url', System.getProperty('datasource.url')
 }

@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CreditRequestEntity {
-    private int id;
-    private int bankId;
+    private String id;
+    private String bankId;
     private String created;
     private String status;
 

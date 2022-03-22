@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class OrderEntity {
-    private int id;
+    private String  id;
     private String created;
-    private int creditId;
-    private int paymentId;
+    private String  creditId;
+    private String  paymentId;
 }

@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentEntity {
 
-    private int id;
+    private String id;
     private String amount;
     private String created;
     private String status;
-    private int transactionsId;
+    private String transactionsId;
 
     public String getStatus() {
         return status;
