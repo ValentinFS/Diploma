@@ -1,10 +1,8 @@
 package ru.netology.data;
 
-import com.codeborne.selenide.conditions.Or;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.checkerframework.checker.units.qual.C;
 import ru.netology.data.DbUtils.CreditRequestEntity;
 import ru.netology.data.DbUtils.OrderEntity;
 import ru.netology.data.DbUtils.PaymentEntity;
@@ -18,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class DbHelper {
 
     private static String url = System.getProperty("datasource.url");
+    //    private static String url = "jdbc:mysql://localhost:3300/app";
     private static String user = "app";
     private static String password = "pass";
 
@@ -43,19 +42,18 @@ public class DbHelper {
     @SneakyThrows
     public static PaymentEntity payData() {
         QueryRunner runner = new QueryRunner();
-//        String reqStatus = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1;";
         String reqStatus = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
 
 
         PaymentEntity payData = new PaymentEntity();
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
-             payData = runner.query(conn, reqStatus, new BeanHandler<>(PaymentEntity.class));
+            payData = runner.query(conn, reqStatus, new BeanHandler<>(PaymentEntity.class));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-            return payData;
-        }
+        return payData;
+    }
 
 
     @SneakyThrows
@@ -86,30 +84,55 @@ public class DbHelper {
         return orderData;
     }
 
+//    @SneakyThrows
+//    public static void checkEmptyOrderEntity() {
+//        QueryRunner runner = new QueryRunner();
+//        String orderRequest = "SELECT * FROM order_entity;";
+//
+//        OrderEntity orderBlock = new OrderEntity();
+//        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+//            orderBlock = runner.query(conn, orderRequest, new BeanHandler<>(OrderEntity.class));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            assertNull(orderBlock);
+//        }
+//    }
+
     @SneakyThrows
     public static void checkEmptyOrderEntity() {
-        QueryRunner runner = new QueryRunner();
+        var runner = new QueryRunner();
         String orderRequest = "SELECT * FROM order_entity;";
 
-        OrderEntity orderBlock = new OrderEntity();
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            orderBlock = runner.query(conn, orderRequest, new BeanHandler<>(OrderEntity.class));
-        } catch (SQLException e) {
-            e.printStackTrace();
+            var orderBlock = runner.query(conn, orderRequest, new BeanHandler<>(OrderEntity.class));
             assertNull(orderBlock);
         }
     }
+
+
+//    @SneakyThrows
+//    public static void checkEmptyPaymentEntity() {
+//        var runner = new QueryRunner();
+//        var orderRequest = "SELECT * FROM payment_entity";
+//
+//        PaymentEntity paymentBlock = new PaymentEntity();
+//        try (var conn = DriverManager.getConnection(url, user, password)) {
+//            paymentBlock = runner.query(conn, orderRequest, new BeanHandler<>(PaymentEntity.class));
+//        } catch (SQLException e) {
+////            e.printStackTrace();
+//            System.out.println("Что-то пошло не так");
+//            assertNull(paymentBlock);
+//        }
+//
+//    }
 
     @SneakyThrows
     public static void checkEmptyPaymentEntity() {
         var runner = new QueryRunner();
         var orderRequest = "SELECT * FROM payment_entity";
 
-        PaymentEntity paymentBlock = new PaymentEntity();
         try (var conn = DriverManager.getConnection(url, user, password)) {
-            paymentBlock = runner.query(conn, orderRequest, new BeanHandler<>(PaymentEntity.class));
-        } catch (SQLException e) {
-            e.printStackTrace();
+            var paymentBlock = runner.query(conn, orderRequest, new BeanHandler<>(PaymentEntity.class));
             assertNull(paymentBlock);
         }
     }

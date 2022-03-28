@@ -23,10 +23,10 @@ public class TestCard {
     DataHelper.CardNumber approvedCard = DataHelper.approvedCardInfo();
     DataHelper.CardNumber declinedCard = DataHelper.declinedCardInfo();
 
-    @BeforeEach
-    public void cleanTables() {
-        DbHelper.cleanData();
-    }
+//    @BeforeEach
+//    public void cleanTables() {
+//        DbHelper.cleanData();
+//    }
 
     @BeforeAll
     static void setUpAll() {
@@ -59,28 +59,28 @@ public class TestCard {
         buyByCard.getSuccessMessage();
         assertEquals(approvedCard.getStatus(), payData().getStatus());
     }
-//
-//    @Test
-//    void shouldBuyByDeclineCard() {
-//        var homePage = new HomePage();
-//        var buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getDeclainedCardInfo(), getValidMonth(), getValidYear(), getValidOwner(), getValidCvc());
-//        buyByCard.getErrorMessage();
-//        assertEquals(declinedCard.getStatus(), payData().getStatus());
-//        checkEmptyOrderEntity();
-//    }
-//
-//
-//    @Test
-////"Покупка тура с невалидным номером карты"
-//    void shouldSendFormWithInvalidCardNumber() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getInvalidCardNumber(), getValidMonth(), getValidYear(), getValidOwner(), getValidCvc());
-//        buyByCard.errorCardNumber();
-//        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
+
+    @Test
+    void shouldBuyByDeclineCard() {
+        var homePage = new HomePage();
+        var buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getDeclainedCardInfo(), getValidMonth(), getValidYear(), getValidOwner(), getValidCvc());
+        buyByCard.getErrorMessage();
+        assertEquals(declinedCard.getStatus(), payData().getStatus());
+        checkEmptyOrderEntity();
+    }
+
+
+    @Test
+//"Покупка тура с невалидным номером карты"
+    void shouldSendFormWithInvalidCardNumber() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getInvalidCardNumber(), getValidMonth(), getValidYear(), getValidOwner(), getValidCvc());
+        buyByCard.errorCardNumber();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
 
 //    @Test
 //        //"Отправка формы с пустым полем Номер карты"
