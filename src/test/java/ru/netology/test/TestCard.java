@@ -18,15 +18,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.data.DataHelper.*;
 import static ru.netology.data.DbHelper.*;
 
+
 public class TestCard {
 
     DataHelper.CardNumber approvedCard = DataHelper.approvedCardInfo();
     DataHelper.CardNumber declinedCard = DataHelper.declinedCardInfo();
 
-//    @BeforeEach
-//    public void cleanTables() {
-//        DbHelper.cleanData();
-//    }
+    @BeforeEach
+    public void cleanTables() {
+        DbHelper.cleanData();
+    }
 
     @BeforeAll
     static void setUpAll() {
@@ -77,152 +78,152 @@ public class TestCard {
         HomePage homePage = new HomePage();
         BuyByCard buyByCard = homePage.getPageByCard();
         buyByCard.enterCardData(getInvalidCardNumber(), getValidMonth(), getValidYear(), getValidOwner(), getValidCvc());
-        buyByCard.errorCardNumber();
+        buyByCard.formatError();
         checkEmptyPaymentEntity();
         checkEmptyOrderEntity();
     }
 
-//    @Test
-//        //"Отправка формы с пустым полем Номер карты"
-//    void shouldSendFormWithoutCardNumber() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getEmptyCardNumber(), getValidMonth(), getValidYear(), getValidOwner(), getValidCvc());
-//        buyByCard.errorCardNumber();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с невалидным месяцем (однозначное числовое значение)"
-//    void shouldSendFormWithInvalidMonth() {
-//        HomePage homePage = new HomePage();
-//        var buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getInvalidMonth(), getValidYear(), getValidOwner(), getValidCvc());
-//        buyByCard.errorMonth();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с пустым месяцем"
-//    void shouldSendFormWithoutMonth() {
-//        HomePage homePage = new HomePage();
-//        var buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getEmptyMonth(), getValidYear(), getValidOwner(), getValidCvc());
-//        buyByCard.errorMonth();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с невалидным годом (однозначное числовое значение)"
-//    void shouldSendFormWithInvalidYearCard() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getInvalidYear(), getValidOwner(), getValidCvc());
-//        buyByCard.errorYear();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с пустым полем Год"
-//    void shouldSendFormWithoutYear() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getEmptyYear(), getValidOwner(), getValidCvc());
-//        buyByCard.errorYear();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Ввод нулевого значения в поле Год"
-//    void shouldSendFormWithNullYear() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getNullYear(), getValidOwner(), getValidCvc());
-//        buyByCard.errorYearNull();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с невалидным данными владельца (значение набрано кириллицей)"
-//    void shouldSendFormWithInvalidOwnerCyrillic() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getInvalidOwnerCyrillic(), getValidCvc());
-//        buyByCard.errorOwner();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с введеными в поле Владелец цифровых значений и математических символов"
-//    void shouldSendFormWithInvalidOwnerMaths() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getInvalidOwnerMaths(), getValidCvc());
-//        buyByCard.errorOwner();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с введеными в поле Владелец буквенных значений в нижнем и верхнем регистре"
-//    void shouldSendFormWithInvalidOwnerRegister() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getInvalidOwnerRegister(), getValidCvc());
-//        buyByCard.errorOwner();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с введеными в поле Владелец буквенных значений в нижнем и верхнем регистре"
-//    void shouldSendFormWithInvalidOwnerEmpty() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getEmptyOwner(), getValidCvc());
-//        buyByCard.errorOwner();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с невалидным CVC/CCV (однозначное числовое значение)"
-//    void shouldSendFormWithInvalidCvc() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getValidOwner(), getInvalidCvc());
-//        buyByCard.errorCvc();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с невалидным CVC/CCV (проверка на 000)"
-//    void shouldSendFormWithNullCvc() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getValidOwner(), getNullCvc());
-//        buyByCard.errorCvc();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
-//
-//    @Test
-////"Отправка формы с невалидным CVC/CCV (пустое поле)"
-//    void shouldSendFormWitheEmptyCvc() {
-//        HomePage homePage = new HomePage();
-//        BuyByCard buyByCard = homePage.getPageByCard();
-//        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getValidOwner(), getEmptyCvc());
-//        buyByCard.errorCvc();
-////        checkEmptyPaymentEntity();
-////        checkEmptyOrderEntity();
-//    }
+    @Test
+        //"Отправка формы с пустым полем Номер карты"
+    void shouldSendFormWithoutCardNumber() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getEmptyCardNumber(), getValidMonth(), getValidYear(), getValidOwner(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с невалидным месяцем (однозначное числовое значение)"
+    void shouldSendFormWithInvalidMonth() {
+        HomePage homePage = new HomePage();
+        var buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getInvalidMonth(), getValidYear(), getValidOwner(), getValidCvc());
+        buyByCard.invalidError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с пустым месяцем"
+    void shouldSendFormWithoutMonth() {
+        HomePage homePage = new HomePage();
+        var buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getEmptyMonth(), getValidYear(), getValidOwner(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с невалидным годом (однозначное числовое значение)"
+    void shouldSendFormWithInvalidYearCard() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getInvalidYear(), getValidOwner(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с пустым полем Год"
+    void shouldSendFormWithoutYear() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getEmptyYear(), getValidOwner(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Ввод нулевого значения в поле Год"
+    void shouldSendFormWithNullYear() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getNullYear(), getValidOwner(), getValidCvc());
+        buyByCard.expiredError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с невалидным данными владельца (значение набрано кириллицей)"
+    void shouldSendFormWithInvalidOwnerCyrillic() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getInvalidOwnerCyrillic(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с введеными в поле Владелец цифровых значений и математических символов"
+    void shouldSendFormWithInvalidOwnerMaths() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getInvalidOwnerMaths(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с введеными в поле Владелец буквенных значений в нижнем и верхнем регистре"
+    void shouldSendFormWithInvalidOwnerRegister() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getInvalidOwnerRegister(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с введеными в поле Владелец буквенных значений в нижнем и верхнем регистре"
+    void shouldSendFormWithInvalidOwnerEmpty() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getEmptyOwner(), getValidCvc());
+        buyByCard.emptyError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с невалидным CVC/CCV (однозначное числовое значение)"
+    void shouldSendFormWithInvalidCvc() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getValidOwner(), getInvalidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с невалидным CVC/CCV (проверка на 000)"
+    void shouldSendFormWithNullCvc() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getValidOwner(), getNullCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с невалидным CVC/CCV (пустое поле)"
+    void shouldSendFormWitheEmptyCvc() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getValidOwner(), getEmptyCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
 
 }

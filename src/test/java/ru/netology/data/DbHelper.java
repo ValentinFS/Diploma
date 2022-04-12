@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DbHelper {
 
-    private static String url = System.getProperty("datasource.url");
-    //    private static String url = "jdbc:mysql://localhost:3300/app";
-    private static String user = "app";
+//    private static String url = "jdbc:mysql://localhost:3300/app";
+    private static String url = "jdbc:postgresql://localhost:5432/app";
+    private static String user = "user";
     private static String password = "pass";
 
     public DbHelper() {
@@ -42,7 +42,7 @@ public class DbHelper {
     @SneakyThrows
     public static PaymentEntity payData() {
         QueryRunner runner = new QueryRunner();
-        String reqStatus = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
+        String reqStatus = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1;";
 
 
         PaymentEntity payData = new PaymentEntity();
@@ -84,20 +84,6 @@ public class DbHelper {
         return orderData;
     }
 
-//    @SneakyThrows
-//    public static void checkEmptyOrderEntity() {
-//        QueryRunner runner = new QueryRunner();
-//        String orderRequest = "SELECT * FROM order_entity;";
-//
-//        OrderEntity orderBlock = new OrderEntity();
-//        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-//            orderBlock = runner.query(conn, orderRequest, new BeanHandler<>(OrderEntity.class));
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            assertNull(orderBlock);
-//        }
-//    }
-
     @SneakyThrows
     public static void checkEmptyOrderEntity() {
         var runner = new QueryRunner();
@@ -109,22 +95,6 @@ public class DbHelper {
         }
     }
 
-
-//    @SneakyThrows
-//    public static void checkEmptyPaymentEntity() {
-//        var runner = new QueryRunner();
-//        var orderRequest = "SELECT * FROM payment_entity";
-//
-//        PaymentEntity paymentBlock = new PaymentEntity();
-//        try (var conn = DriverManager.getConnection(url, user, password)) {
-//            paymentBlock = runner.query(conn, orderRequest, new BeanHandler<>(PaymentEntity.class));
-//        } catch (SQLException e) {
-////            e.printStackTrace();
-//            System.out.println("Что-то пошло не так");
-//            assertNull(paymentBlock);
-//        }
-//
-//    }
 
     @SneakyThrows
     public static void checkEmptyPaymentEntity() {

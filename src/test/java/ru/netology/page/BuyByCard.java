@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import java.time.Duration;
 
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -59,27 +60,22 @@ public class BuyByCard {
         successMessage.get(1).shouldHave(Condition.exactText("Ошибка! Банк отказал в проведении операции."));
     }
 
-    public void errorCardNumber() {
-        errorMessage.shouldHave(Condition.text("Неверный формат"));
+
+    public void formatError() {
+        errorMessage.shouldHave(text("Неверный формат"));
     }
 
-    public void errorMonth() {
-        errorMessage.shouldHave(Condition.text("Неверный формат"));
+    public void expiredError() {
+        errorMessage.shouldHave(text("Истёк срок действия карты"));
     }
 
-    public void errorYear() {
-        errorMessage.shouldHave(Condition.text("Неверный формат"));
-    }
-    public void errorYearNull() {
-        errorMessage.shouldHave(Condition.text("Истёк срок действия карты"));
+    public void invalidError() {
+        errorMessage.shouldHave(text("Неверно указан срок действия карты"));
     }
 
-    public void errorOwner() {
-        errorMessage.shouldHave(Condition.text("Поле обязательно для заполнения"));
+    public void emptyError() {
+        errorMessage.shouldHave(text("Поле обязательно для заполнения"));
     }
 
-    public void errorCvc() {
-        errorMessage.shouldHave(Condition.text("Неверный формат"));
-    }
 
 }
