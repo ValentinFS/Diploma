@@ -96,10 +96,21 @@ public class TestCard {
 
     @Test
 //"Отправка формы с невалидным месяцем (однозначное числовое значение)"
-    void shouldSendFormWithInvalidMonth() {
+    void shouldSendFormWithInvalidMonth1() {
         HomePage homePage = new HomePage();
         var buyByCard = homePage.getPageByCard();
-        buyByCard.enterCardData(getApprovedCardInfo(), getInvalidMonth(), getValidYear(), getValidOwner(), getValidCvc());
+        buyByCard.enterCardData(getApprovedCardInfo(), getInvalidMonth1(), getValidYear(), getValidOwner(), getValidCvc());
+        buyByCard.invalidError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с невалидным месяцем (неверно указан срок действия карты)"
+    void shouldSendFormWithInvalidMonth2() {
+        HomePage homePage = new HomePage();
+        var buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getInvalidMonth2(), getValidYear(), getValidOwner(), getValidCvc());
         buyByCard.invalidError();
         checkEmptyPaymentEntity();
         checkEmptyOrderEntity();
@@ -118,10 +129,21 @@ public class TestCard {
 
     @Test
 //"Отправка формы с невалидным годом (однозначное числовое значение)"
-    void shouldSendFormWithInvalidYearCard() {
+    void shouldSendFormWithInvalidYearCard1() {
         HomePage homePage = new HomePage();
         BuyByCard buyByCard = homePage.getPageByCard();
         buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getInvalidYear(), getValidOwner(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с невалидным годом (неверно указан срок действия карты)"
+    void shouldSendFormWithInvalidYearCard2() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getInvalidLastYear(), getValidOwner(), getValidCvc());
         buyByCard.formatError();
         checkEmptyPaymentEntity();
         checkEmptyOrderEntity();
@@ -183,7 +205,29 @@ public class TestCard {
     }
 
     @Test
-//"Отправка формы с введеными в поле Владелец буквенных значений в нижнем и верхнем регистре"
+//"Отправка формы с введеным в поле Владелец одной буквы (минимальная длина)"
+    void shouldSendFormWithInvalidOwnerMinLength() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getInvalidOwnerMinLength(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с введеными в поле Владелец 270 буквенных значений (максимальная длина поля)"
+    void shouldSendFormWithInvalidOwnerMaxLength() {
+        HomePage homePage = new HomePage();
+        BuyByCard buyByCard = homePage.getPageByCard();
+        buyByCard.enterCardData(getApprovedCardInfo(), getValidMonth(), getValidYear(), getInvalidOwnerMaxLength(), getValidCvc());
+        buyByCard.formatError();
+        checkEmptyPaymentEntity();
+        checkEmptyOrderEntity();
+    }
+
+    @Test
+//"Отправка формы с пустым полем Владелец"
     void shouldSendFormWithInvalidOwnerEmpty() {
         HomePage homePage = new HomePage();
         BuyByCard buyByCard = homePage.getPageByCard();

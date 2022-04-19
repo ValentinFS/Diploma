@@ -59,7 +59,7 @@ public class DataHelper {
 
     public static String getInvalidCardNumber() {
         Faker faker = new Faker();
-        return Long.toString(faker.number().randomNumber(11, true));
+        return Long.toString(faker.number().randomNumber(7, true));
     }
 
     public static String getEmptyCardNumber() {
@@ -72,7 +72,13 @@ public class DataHelper {
         return month[rnd];
     }
 
-    public static String getInvalidMonth() {
+    public static String getInvalidMonth1() {
+        String[] month = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        int rnd = new Random().nextInt(month.length);
+        return month[rnd];
+    }
+
+    public static String getInvalidMonth2() {
         String[] month = {"21", "22", "23", "24", "25", "26", "27", "28", "29"};
         int rnd = new Random().nextInt(month.length);
         return month[rnd];
@@ -94,6 +100,10 @@ public class DataHelper {
         String[] year = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
         int rnd = new Random().nextInt(year.length);
         return year[rnd];
+    }
+
+    public static String getInvalidLastYear() {
+        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static String getNullYear() {
@@ -124,6 +134,14 @@ public class DataHelper {
         String[] owner = {"SiDORov ivAN", "kuZin PaVeL", "ОлеСя кВасцОВа", "SkvorTsoVA dashA", "ваНя дуроВ", "PANIN petr"};
         int rnd = new Random().nextInt(owner.length);
         return owner[rnd];
+    }
+
+    public static String getInvalidOwnerMinLength() {
+        return "P";
+    }
+
+    public static String getInvalidOwnerMaxLength() {
+        return "лывоаылдвлаопвлдаполвадопоплдфаоплофрадлфоаырвплдфырполРАдфаырлыораждывтаимлоистлдЫоващрыфлдваодлЫОВАОРЫЛОПРЛыорвадлфВАЫВАЫП";
     }
 
     public static String getEmptyOwner() {

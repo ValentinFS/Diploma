@@ -16,7 +16,4 @@ public class PaymentEntity {
     private String status;
     private String transactions_id;
 
-//    public String getStatus() {
-//        return status;
-//    }
 }
